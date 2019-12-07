@@ -1,12 +1,14 @@
-arr = [5, 2, 4, 6, 1, 3]
-for j in range(1, len(arr)):
-    key = arr[j]
-    i = j - 1
-    while i >= 0 and arr[i] > key:
-        arr[i + 1] = arr[i]
-        i = i - 1
-    arr[i+1] = key
+arr = [5, 4, 3, 2, 1]
 
-for j in range(0, len(arr)):
-    print(arr[j])
+for i in range(1, len(arr)):
+    j = i - 1
+    key = arr[i]
+    for j in range(j, -2, -1):
+        if j < 0 or key >= arr[j]:
+            break
+        else:
+            arr[j + 1] = arr[j]
 
+    arr[j + 1] = key
+
+print(arr)
