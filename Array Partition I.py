@@ -23,5 +23,5 @@ class Solution:
 
 
 s = Solution()
-result = s.arrayPairSum([1, 1, 3, 1, 3, 3])
+result = s.arrayPairSum([4,2,5,5,6,0])
 print(result)
