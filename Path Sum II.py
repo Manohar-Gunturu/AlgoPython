@@ -7,34 +7,30 @@ class TreeNode:
 
 
 class Solution:
+    def pathSum(self, root: TreeNode, S: int) -> int:
 
-    def pathSum(self, root: TreeNode, target: int) -> int:
-        self.tracker = {0: 1}
-        self.count = 0
-        self.dfs(root, 0, target)
-        return self.count
+        def dfs(node, sums, currSum):
+            if not node:
+                return
 
-    def dfs(self, node, acc_sum, target):
+            newSum = node.val + currSum
+            if newSum - S in sums:
+                ans["num"] += sums[node.val + currSum - S]
+            if not node.left and not node.right:
+                return
 
-        if node is None:
-            return
+            sums[newSum] = sums.get(newSum, 0) + 1
+            dfs(node.left, sums, newSum)
+            dfs(node.right, sums, newSum)
+            sums[newSum] -= 1
 
-        val = node.val
+        if not root:
+            return 0
 
-        acc_sum = acc_sum + val
-
-        # print(acc_sum, target)
-
-        if acc_sum - target in self.tracker:
-            self.count += 1
-
-        self.tracker[acc_sum] = 0
-
-        self.dfs(node.left, acc_sum, target)
-        self.dfs(node.right, acc_sum, target)
-
-        if acc_sum in self.tracker:
-            del self.tracker[acc_sum]
+        ans = {"num": 0}
+        sums = {0: 1}
+        dfs(root, sums, 0)
+        return ans["num"]
 
 
 def stringToTreeNode(input):

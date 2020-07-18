@@ -8,8 +8,8 @@ def merge(array, begin, mid, end):
     # size of first array [mid+1, end]
     n2 = end - mid
     # temp array to hold left and right
-    leftarr = [0] * (n1)
-    rightarr = [0] * (n2)
+    leftarr = [0] * n1
+    rightarr = [0] * n2
 
     for i2 in range(0, n1):
         leftarr[i2] = array[i2 + begin]
@@ -45,7 +45,7 @@ def merge(array, begin, mid, end):
 
 def mergesort(array, l, r):
     if l < r:
-        mid = round((l + (r - 1)) / 2)
+        mid = (l + r) >> 1
         mergesort(array, l, mid)
         mergesort(array, mid + 1, r)
         merge(array, l, mid, r)

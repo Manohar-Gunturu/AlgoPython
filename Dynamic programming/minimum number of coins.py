@@ -1,29 +1,19 @@
-coins = [9, 6, 5, 1]
-V = 11
-cache = dict()
+from math import inf
+from typing import List
 
 
-def change(val):
-    if val == 0:
-        return 0, []
+class Solution:
 
-    if val in cache:
-        print('Hit ')
-        return cache[val]
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        arr = [0] * (amount + 1)
+        for a in range(1, amount + 1):
+            m = inf
+            for c in coins:
+                if c <= a:
+                    m = min(arr[a - 1] + 1, m)
 
-    ans = float('inf')
-    ans_coins = []
-    for c in coins:
-        if c <= val:
-            ans_remaning_sum = change(val - c)
-            if ans_remaning_sum[0] + 1 < ans:
-                ans = ans_remaning_sum[0] + 1
-                ans_coins = ans_remaning_sum[1]
-                ans_coins.append(c)
-
-    cache[val] = (ans, ans_coins)
-    return ans, ans_coins
+            arr[a] = m
 
 
-ans = change(V)
-print(ans)
+s = Solution()
+print(s.coinChange([1, 2, 5], 11))
